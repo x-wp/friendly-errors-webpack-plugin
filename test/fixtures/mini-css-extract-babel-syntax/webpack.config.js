@@ -1,5 +1,5 @@
 // mini-css-extract-plugin test
-const FriendlyErrorsWebpackPlugin = require('../../../index');
+const FriendlyErrorsWebpackPlugin = require('../../../src/friendly-errors-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {

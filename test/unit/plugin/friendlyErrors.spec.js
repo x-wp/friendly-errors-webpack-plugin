@@ -2,7 +2,7 @@ const { SyncHook } = require('tapable');
 const Stats = require('webpack/lib/Stats')
 
 const output = require("../../../src/output");
-const FriendlyErrorsPlugin = require("../../../index");
+const FriendlyErrorsPlugin = require("../../../src/friendly-errors-plugin");
 
 var notifierPlugin;
 var mockCompiler;

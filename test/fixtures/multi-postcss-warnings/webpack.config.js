@@ -1,5 +1,5 @@
 // postcss-loader warnings test (multi-compiler version)
-const FriendlyErrorsWebpackPlugin = require('../../../index');
+const FriendlyErrorsWebpackPlugin = require('../../../src/friendly-errors-plugin');
 
 const COMMON_CONFIG = {
   mode: 'production',

@@ -1,14 +1,16 @@
 'use strict';
 
+import type { AnnotatedError, RawWebpackError, Transformer } from '../types';
+
 const TYPE = 'module-not-found';
 
-function isModuleNotFoundError (e) {
+function isModuleNotFoundError(e: AnnotatedError): boolean {
   return e.name === 'ModuleNotFoundError'
     && typeof e.message === 'string'
     && e.message.indexOf('Module not found') === 0;
 }
 
-function getRequest (webpackError) {
+function getRequest(webpackError: RawWebpackError): string | undefined {
   const dependencies = webpackError.dependencies;
   if (dependencies && dependencies.length > 0) {
     const dependency = dependencies[0];
@@ -21,20 +23,19 @@ function getRequest (webpackError) {
   return match ? match[1] : undefined;
 }
 
-function transform(error) {
+const transform: Transformer = (error) => {
   const webpackError = error.webpackError;
   if (isModuleNotFoundError(error)) {
-    const module = getRequest(webpackError);
+    const moduleName = getRequest(webpackError);
     return Object.assign({}, error, {
-      message: `Module not found ${module}`,
+      message: `Module not found ${moduleName}`,
       type: TYPE,
       severity: 900,
-      module,
-      name: 'Module not found'
+      module: moduleName,
+      name: 'Module not found',
     });
   }
-
   return error;
-}
+};
 
-module.exports = transform;
+export = transform;

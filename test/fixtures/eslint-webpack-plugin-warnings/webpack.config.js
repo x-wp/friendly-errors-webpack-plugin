@@ -1,4 +1,4 @@
-const FriendlyErrorsWebpackPlugin = require('../../../index');
+const FriendlyErrorsWebpackPlugin = require('../../../src/friendly-errors-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {

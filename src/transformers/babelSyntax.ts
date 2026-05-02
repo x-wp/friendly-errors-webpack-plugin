@@ -1,20 +1,20 @@
 'use strict';
 
+import type { AnnotatedError, Transformer } from '../types';
+
 /**
  * This will be removed in next versions as it is not handled in the babel-loader
  * See: https://github.com/geowarin/friendly-errors-webpack-plugin/issues/2
  */
-function cleanStackTrace(message) {
-  return message
-    .replace(/^\s*at\s.*:\d+:\d+[\s)]*\n/gm, ''); // at ... ...:x:y
+function cleanStackTrace(message: string): string {
+  return message.replace(/^\s*at\s.*:\d+:\d+[\s)]*\n/gm, '');
 }
 
-function cleanMessage(message) {
+function cleanMessage(message: string): string {
   return message
     // match until the last semicolon followed by a space
-    // this should match
-    // linux => "(SyntaxError: )Unexpected token (5:11)"
-    // windows => "(SyntaxError: C:/projects/index.js: )Unexpected token (5:11)"
+    // linux  : "(SyntaxError: )Unexpected token (5:11)"
+    // windows: "(SyntaxError: C:/projects/index.js: )Unexpected token (5:11)"
     .replace(/^Module build failed.*:\s/, 'Syntax Error: ')
     // remove mini-css-extract-plugin loader tracing errors
     .replace(/^Syntax Error: ModuleBuildError:.*:\s/, '')
@@ -22,12 +22,12 @@ function cleanMessage(message) {
     .replace(/^Syntax Error: SyntaxError: (([A-Z]:)?\/.*:\s)?/, 'Syntax Error: ');
 }
 
-function isBabelSyntaxError(e) {
-  return e.name === 'ModuleBuildError' || e.name === 'ModuleBuildError' &&
-    e.message.indexOf('SyntaxError') >= 0;
+function isBabelSyntaxError(e: AnnotatedError): boolean {
+  return e.name === 'ModuleBuildError' || (e.name === 'ModuleBuildError'
+    && typeof e.message === 'string' && e.message.indexOf('SyntaxError') >= 0);
 }
 
-function transform(error) {
+const transform: Transformer = (error) => {
   if (isBabelSyntaxError(error)) {
     return Object.assign({}, error, {
       message: cleanStackTrace(cleanMessage(error.message) + '\n'),
@@ -35,8 +35,7 @@ function transform(error) {
       name: 'Syntax Error',
     });
   }
-
   return error;
-}
+};
 
-module.exports = transform;
+export = transform;
