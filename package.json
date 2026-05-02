@@ -1,6 +1,6 @@
 {
   "name": "@soda/friendly-errors-webpack-plugin",
-  "version": "0.0.0-semantic-release",
+  "version": "0.0.0",
   "description": "Recognizes certain classes of webpack errors and cleans, aggregates and prioritizes them to provide a better Developer Experience",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
