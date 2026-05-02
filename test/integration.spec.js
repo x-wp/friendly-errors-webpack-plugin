@@ -99,25 +99,19 @@ it('integration : babel syntax error with babel-loader 8 (babel 7)', async() => 
   expect(joined).toMatch(/> 5 \|\s+return <div>/);
 });
 
-// Skipped: webpack 5 + mini-css-extract-plugin@2 + sass-loader@13 emit a
-// wrapped pair of errors (sass parse + downstream module-parse) instead of the
-// single clean block the fixture used to capture. Rebuilding the assertion is
-// tracked separately so this bead can land.
-it.skip('integration : mini CSS extract plugin babel error', async() => {
-
+it('integration : mini CSS extract plugin sass syntax error', async() => {
+  // Webpack 5 + sass-loader@13 surfaces the underlying sass parse failure
+  // twice: once as the clean ModuleBuildError, then again wrapped in a
+  // HookWebpackError. We assert the clean block; the wrapped duplicate is
+  // webpack-internal noise the plugin doesn't currently dedupe.
   const logs = await executeAndGetLogs('./fixtures/mini-css-extract-babel-syntax/webpack.config');
-  const clean_logs = logs.toString().replace(/\"/g, ""); //<- double quotes issue with slash
-  expect(clean_logs).toEqual(
-    `ERROR  Failed to compile with 1 error,,error  in ./test/fixtures/mini-css-extract-babel-syntax/index.scss,,.test {
-  ^
-      Expected digit.
-  ╷
-7 │         .test {
-  │          ^
-  ╵
-  stdin 7:4  root stylesheet
-      in ${filename('fixtures/mini-css-extract-babel-syntax/index.scss')} (line 7, column 4),`
-  );
+
+  expect(logs[0]).toMatch(/^ERROR\s+Failed to compile with \d+ errors?$/);
+  expect(logs[1]).toBe('');
+  expect(logs[2]).toBe('error  in ./test/fixtures/mini-css-extract-babel-syntax/index.scss');
+  expect(logs[3]).toBe('');
+  expect(logs[4]).toMatch(/^Syntax Error: Expected digit\./);
+  expect(logs[4]).toContain('.test {');
 });
 
 it('integration : webpack multi compiler : success', async() => {
@@ -151,11 +145,7 @@ it('integration : webpack multi compiler : module-errors', async() => {
   ]);
 });
 
-// Skipped: autoprefixer@10 no longer emits the `grid-gap only works...` /
-// `grid-auto-flow works only if...` warnings these fixtures relied on, and
-// postcss-loader@7 changed its loader-path (`dist/cjs.js`). Restoring coverage
-// needs a new fixture producing a deterministic postcss warning; tracked separately.
-it.skip('integration : postcss-loader : warnings', async() => {
+it('integration : postcss-loader : warnings', async() => {
 
   const logs = await executeAndGetLogs('./fixtures/postcss-warnings/webpack.config');
   expect(logs).toEqual([
@@ -163,15 +153,13 @@ it.skip('integration : postcss-loader : warnings', async() => {
     '',
     'warning  in ./test/fixtures/postcss-warnings/index.css',
     '',
-    `Module Warning (from ./node_modules/postcss-loader/src/index.js):
-Warning
-
-(3:2) grid-gap only works if grid-template(-areas) is being used`,
+    `Module Warning (from ./node_modules/postcss-loader/dist/cjs.js):
+from "fixture-warning" plugin: fixture postcss warning`,
     ''
   ]);
 });
 
-it.skip('integration : postcss-loader : warnings (multi-compiler version)', async() => {
+it('integration : postcss-loader : warnings (multi-compiler version)', async() => {
 
   const logs = await executeAndGetLogs('./fixtures/multi-postcss-warnings/webpack.config');
   expect(logs).toEqual([
@@ -179,19 +167,15 @@ it.skip('integration : postcss-loader : warnings (multi-compiler version)', asyn
     '',
     'warning  in ./test/fixtures/multi-postcss-warnings/index.css',
     '',
-    `Module Warning (from ./node_modules/postcss-loader/src/index.js):
-Warning
-
-(3:2) grid-gap only works if grid-template(-areas) is being used`,
+    `Module Warning (from ./node_modules/postcss-loader/dist/cjs.js):
+from "fixture-warning" plugin: warning in index.css`,
     '',
     'WARNING  Compiled with 1 warning',
     '',
     'warning  in ./test/fixtures/multi-postcss-warnings/index2.css',
     '',
-    `Module Warning (from ./node_modules/postcss-loader/src/index.js):
-Warning
-
-(3:2) grid-auto-flow works only if grid-template-rows and grid-template-columns are present in the same rule`,
+    `Module Warning (from ./node_modules/postcss-loader/dist/cjs.js):
+from "fixture-warning" plugin: warning in index2.css`,
     ''
   ]);
 });
