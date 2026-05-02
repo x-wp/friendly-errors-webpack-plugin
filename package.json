@@ -1,6 +1,6 @@
 {
   "name": "@soda/friendly-errors-webpack-plugin",
-  "version": "1.8.1",
+  "version": "0.0.0-semantic-release",
   "description": "Recognizes certain classes of webpack errors and cleans, aggregates and prioritizes them to provide a better Developer Experience",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,6 +32,9 @@
     "url": "https://github.com/sodatea/friendly-errors-webpack-plugin/issues"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "webpack": "^5.0.0"
   },
