@@ -1,9 +1,9 @@
 {
   "parserOptions": {
-    "ecmaVersion": 8
+    "ecmaVersion": 2022
   },
-  "plugins": ["node"],
-  "extends": ["eslint:recommended", "plugin:node/recommended"],
+  "plugins": ["n"],
+  "extends": ["eslint:recommended", "plugin:n/recommended"],
   "rules": {
     "no-console": "off",
     "no-unused-vars": "off"

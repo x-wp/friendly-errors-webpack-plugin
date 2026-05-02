@@ -1,30 +1,18 @@
 const FriendlyErrorsWebpackPlugin = require('../index');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-  entry: __dirname + "/index.js",
+  mode: 'development',
+  entry: __dirname + '/index.js',
   output: {
-    path: __dirname + "/dist",
-    filename: "bundle.js"
+    path: __dirname + '/dist',
+    filename: 'bundle.js',
   },
   plugins: [
-    new FriendlyErrorsWebpackPlugin()
+    new FriendlyErrorsWebpackPlugin(),
+    new ESLintPlugin({
+      context: __dirname,
+      files: '*.js',
+    }),
   ],
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        include: __dirname
-      },
-      {
-        test: /\.jsx?$/,
-        loader: require.resolve('babel-loader-7'),
-        query: {
-          presets: ['react'],
-        },
-        exclude: /node_modules/
-      }
-    ]
-  }
 };

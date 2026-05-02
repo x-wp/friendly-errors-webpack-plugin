@@ -72,6 +72,7 @@ it('integration : should display eslint-webpack-plugin warnings', async() => {
   expect(logs.join('\n')).toEqual(
     `WARNING  Compiled with 1 warning
 
+[eslint]${' '}
 ${filename('fixtures/eslint-webpack-plugin-warnings/index.js')}
   3:7  warning  'unused' is assigned a value but never used   no-unused-vars
   4:7  warning  'unused2' is assigned a value but never used  no-unused-vars

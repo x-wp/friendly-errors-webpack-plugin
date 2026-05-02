@@ -1,9 +1,8 @@
-/* eslint-disable */
-const unsed = 'I am unused';
+// Intentional errors for manually exercising the friendly-errors pipeline:
+//  * unused vars  -> eslint warning      (esLintError transformer)
+//  * bad require  -> module-not-found    (moduleNotFound transformer)
+const unused = 'I am unused';
+const unused2 = 'me too';
 
-export default class MyComponent extends React.Component {
-
-  render() {
-    return <div>Hello</div>
-  }
-}
+require('this-package-does-not-exist');
+require('./relative-module-that-is-missing');

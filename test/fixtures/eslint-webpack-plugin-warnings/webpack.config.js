@@ -10,9 +10,7 @@ module.exports = {
   },
   plugins: [
     new FriendlyErrorsWebpackPlugin(),
-    new ESLintPlugin({
-      eslintPath: require.resolve('eslint-7')
-    })
+    new ESLintPlugin()
   ],
   module: {
     rules: [
