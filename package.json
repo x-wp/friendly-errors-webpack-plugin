@@ -26,14 +26,16 @@
   "author": "Geoffroy Warin",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sodatea/friendly-errors-webpack-plugin.git"
+    "url": "git+https://github.com/x-wp/friendly-errors-webpack-plugin.git"
   },
   "bugs": {
-    "url": "https://github.com/sodatea/friendly-errors-webpack-plugin/issues"
+    "url": "https://github.com/x-wp/friendly-errors-webpack-plugin/issues"
   },
+  "homepage": "https://github.com/x-wp/friendly-errors-webpack-plugin#readme",
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "peerDependencies": {
     "webpack": "^5.0.0"

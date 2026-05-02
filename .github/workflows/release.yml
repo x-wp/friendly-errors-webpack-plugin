@@ -1,0 +1,62 @@
+name: Release
+on:
+  push:
+    branches:
+      - master
+      - next
+permissions:
+  contents: read
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          token: ${{ secrets.OBLAKBOT_PAT }}
+
+      - name: Import GPG key
+        id: gpg
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.OBLAKBOT_GPG_KEY }}
+          passphrase: ${{ secrets.OBLAKBOT_GPG_PASS }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+          git_tag_gpgsign: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          semantic_version: 23
+        env:
+          GIT_AUTHOR_NAME: ${{ steps.gpg.outputs.name }}
+          GIT_AUTHOR_EMAIL: ${{ steps.gpg.outputs.email }}
+          GIT_COMMITTER_NAME: ${{ steps.gpg.outputs.name }}
+          GIT_COMMITTER_EMAIL: ${{ steps.gpg.outputs.email }}
+          GITHUB_TOKEN: ${{ secrets.OBLAKBOT_PAT }}
+          NPM_TOKEN: ${{ secrets.OBLAKBOT_NPM_TOKEN }}

@@ -1,7 +1,7 @@
 # Friendly-errors-webpack-plugin
 
 [![npm](https://img.shields.io/npm/v/@x-wp/friendly-errors-webpack-plugin.svg)](https://www.npmjs.com/package/@x-wp/friendly-errors-webpack-plugin)
-[![CI](https://github.com/oblakstudio/friendly-errors-webpack-plugin/actions/workflows/test.yml/badge.svg)](https://github.com/oblakstudio/friendly-errors-webpack-plugin/actions/workflows/test.yml)
+[![CI](https://github.com/x-wp/friendly-errors-webpack-plugin/actions/workflows/test.yml/badge.svg)](https://github.com/x-wp/friendly-errors-webpack-plugin/actions/workflows/test.yml)
 
 Friendly-errors-webpack-plugin recognizes certain classes of webpack
 errors and cleans, aggregates and prioritizes them to provide a better
@@ -145,15 +145,15 @@ new FriendlyErrorsPlugin({
 
 Webpack's errors processing, is done in four phases:
 
-1. Extract relevant info from webpack errors. This is done by the plugin [here](https://github.com/sodatea/friendly-errors-webpack-plugin/blob/master/src/core/extractWebpackError.js)
+1. Extract relevant info from webpack errors. This is done by the plugin [here](https://github.com/x-wp/friendly-errors-webpack-plugin/blob/master/src/core/extractWebpackError.js)
 2. Apply transformers to all errors to identify and annotate well know errors and give them a priority
 3. Get only top priority error or top priority warnings if no errors are thrown
 4. Apply formatters to all annotated errors
 
-You can add transformers and formatters. Please see [transformErrors](https://github.com/sodatea/friendly-errors-webpack-plugin/blob/master/src/core/transformErrors.js),
-and [formatErrors](https://github.com/sodatea/friendly-errors-webpack-plugin/blob/master/src/core/formatErrors.js)
-in the source code and take a look a the [default transformers](https://github.com/sodatea/friendly-errors-webpack-plugin/tree/master/src/transformers)
-and the [default formatters](https://github.com/sodatea/friendly-errors-webpack-plugin/tree/master/src/formatters).
+You can add transformers and formatters. Please see [transformErrors](https://github.com/x-wp/friendly-errors-webpack-plugin/blob/master/src/core/transformErrors.js),
+and [formatErrors](https://github.com/x-wp/friendly-errors-webpack-plugin/blob/master/src/core/formatErrors.js)
+in the source code and take a look a the [default transformers](https://github.com/x-wp/friendly-errors-webpack-plugin/tree/master/src/transformers)
+and the [default formatters](https://github.com/x-wp/friendly-errors-webpack-plugin/tree/master/src/formatters).
 
 ## Contributing
 
