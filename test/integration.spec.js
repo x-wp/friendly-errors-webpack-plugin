@@ -162,20 +162,14 @@ from "fixture-warning" plugin: fixture postcss warning`,
 it('integration : postcss-loader : warnings (multi-compiler version)', async() => {
 
   const logs = await executeAndGetLogs('./fixtures/multi-postcss-warnings/webpack.config');
-  expect(logs).toEqual([
-    'WARNING  Compiled with 1 warning',
-    '',
-    'warning  in ./test/fixtures/multi-postcss-warnings/index.css',
-    '',
-    `Module Warning (from ./node_modules/postcss-loader/dist/cjs.js):
-from "fixture-warning" plugin: warning in index.css`,
-    '',
-    'WARNING  Compiled with 1 warning',
-    '',
-    'warning  in ./test/fixtures/multi-postcss-warnings/index2.css',
-    '',
-    `Module Warning (from ./node_modules/postcss-loader/dist/cjs.js):
-from "fixture-warning" plugin: warning in index2.css`,
-    ''
-  ]);
+  const joined = logs.join('\n');
+
+  // Each sub-compiler runs in parallel and fires `done` independently, so the
+  // two warning blocks may interleave in either order. Assert structure rather
+  // than ordering.
+  expect(logs.filter(l => l === 'WARNING  Compiled with 1 warning')).toHaveLength(2);
+  expect(joined).toContain('warning  in ./test/fixtures/multi-postcss-warnings/index.css');
+  expect(joined).toContain('from "fixture-warning" plugin: warning in index.css');
+  expect(joined).toContain('warning  in ./test/fixtures/multi-postcss-warnings/index2.css');
+  expect(joined).toContain('from "fixture-warning" plugin: warning in index2.css');
 });

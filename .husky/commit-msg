@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# nvm-managed Node installs don't always inject node/npx into non-interactive
+# shell PATHs (GUI git clients, agent shells, etc.) — fall back to the most
+# recent installed version so the hook works regardless of how git is invoked.
+if ! command -v npx >/dev/null 2>&1 && [ -d "$HOME/.nvm/versions/node" ]; then
+  export PATH="$(ls -dt "$HOME"/.nvm/versions/node/*/bin 2>/dev/null | head -1):$PATH"
+fi
+
+exec npx --no-install commitlint --edit "$1"
