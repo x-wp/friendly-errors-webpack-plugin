@@ -3,12 +3,12 @@
 const output = require('../src/output');
 const webpack = require('webpack');
 const FriendlyErrorsWebpackPlugin = require('../src/friendly-errors-plugin');
-const MemoryFileSystem = require('memory-fs');
+const { createFsFromVolume, Volume } = require('memfs');
 const path = require('path');
 
 const webpackPromise = function (config, globalPlugins) {
   const compiler = webpack(config);
-  compiler.outputFileSystem = new MemoryFileSystem();
+  compiler.outputFileSystem = createFsFromVolume(new Volume());
   if (Array.isArray(globalPlugins)) {
     globalPlugins.forEach(p => p.apply(compiler));
   }

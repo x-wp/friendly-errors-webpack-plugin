@@ -1,7 +1,5 @@
-const EventEmitter = require('events');
+const { SyncHook } = require('tapable');
 const Stats = require('webpack/lib/Stats')
-const Module = require('webpack/lib/Module');
-EventEmitter.prototype.plugin = EventEmitter.prototype.on;
 
 const output = require("../../../src/output");
 const FriendlyErrorsPlugin = require("../../../index");
@@ -11,14 +9,19 @@ var mockCompiler;
 
 beforeEach(() => {
   notifierPlugin = new FriendlyErrorsPlugin();
-  mockCompiler = new EventEmitter();
+  mockCompiler = {
+    hooks: {
+      done: new SyncHook(['stats']),
+      invalid: new SyncHook()
+    }
+  };
   notifierPlugin.apply(mockCompiler);
 });
 
 it('friendlyErrors : capture invalid message', () => {
 
   const logs = output.captureLogs(() => {
-    mockCompiler.emit('invalid');
+    mockCompiler.hooks.invalid.call();
   });
 
   expect(logs).toEqual([
@@ -31,7 +34,7 @@ it('friendlyErrors : capture compilation without errors', () => {
 
   const stats = successfulCompilationStats();
   const logs = output.captureLogs(() => {
-    mockCompiler.emit('done', stats);
+    mockCompiler.hooks.done.call(stats);
   });
 
   expect(logs).toEqual([

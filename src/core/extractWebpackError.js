@@ -1,10 +1,19 @@
 'use strict';
 
+const path = require('path');
 const ErrorStackParser = require('error-stack-parser');
-const RequestShortener = require("webpack/lib/RequestShortener");
 
-// TODO: allow the location to be customized in options
-const requestShortener = new RequestShortener(process.cwd());
+// Inline duck-typed replacement for webpack/lib/RequestShortener (webpack
+// internal). NormalModule#readableIdentifier only calls shorten(request).
+const cwdPrefix = process.cwd() + path.sep;
+const requestShortener = {
+  shorten(request) {
+    if (typeof request !== 'string') return request;
+    return request
+      .split(cwdPrefix).join('./')
+      .split(path.sep).join('/');
+  }
+};
 
 /*
  This logic is mostly duplicated from webpack/lib/Stats.js#toJson()
