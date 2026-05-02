@@ -1,6 +1,6 @@
 # Friendly-errors-webpack-plugin
 
-[![npm](https://img.shields.io/npm/v/@soda/friendly-errors-webpack-plugin.svg)](https://www.npmjs.com/package/@soda/friendly-errors-webpack-plugin)
+[![npm](https://img.shields.io/npm/v/@x-wp/friendly-errors-webpack-plugin.svg)](https://www.npmjs.com/package/@x-wp/friendly-errors-webpack-plugin)
 [![CI](https://github.com/oblakstudio/friendly-errors-webpack-plugin/actions/workflows/test.yml/badge.svg)](https://github.com/oblakstudio/friendly-errors-webpack-plugin/actions/workflows/test.yml)
 
 Friendly-errors-webpack-plugin recognizes certain classes of webpack
@@ -15,7 +15,7 @@ errors get handled, please open a [PR](https://help.github.com/articles/creating
 ### Installation
 
 ```bash
-npm install @soda/friendly-errors-webpack-plugin --save-dev
+npm install @x-wp/friendly-errors-webpack-plugin --save-dev
 ```
 
 ### Basic usage
@@ -23,7 +23,7 @@ npm install @soda/friendly-errors-webpack-plugin --save-dev
 Simply add `FriendlyErrorsWebpackPlugin` to the plugin section in your Webpack config.
 
 ```javascript
-var FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin');
+var FriendlyErrorsWebpackPlugin = require('@x-wp/friendly-errors-webpack-plugin');
 
 var webpackConfig = {
   // ...

@@ -1,6 +1,6 @@
 # Modernization Plan — webpack 5 + semantic-release
 
-`@soda/friendly-errors-webpack-plugin` currently ships as `1.8.1` against a toolchain written for webpack 4: a `compiler.plugin(...)` fallback branch, a `require("webpack/lib/RequestShortener")` internal import, `memory-fs@0.4.1` in tests, `webpack@4.31.0` as the test-pinned devDependency, `jest@24`, and `eslint@5`. The `peerDependencies` field permits webpack 5, but nothing in the source or the test harness actually exercises webpack 5.
+`@x-wp/friendly-errors-webpack-plugin` currently ships as `1.8.1` against a toolchain written for webpack 4: a `compiler.plugin(...)` fallback branch, a `require("webpack/lib/RequestShortener")` internal import, `memory-fs@0.4.1` in tests, `webpack@4.31.0` as the test-pinned devDependency, `jest@24`, and `eslint@5`. The `peerDependencies` field permits webpack 5, but nothing in the source or the test harness actually exercises webpack 5.
 
 This document tracks the modernization effort in **three slices** plus one follow-up:
 
@@ -140,7 +140,7 @@ No `@semantic-release/github` plugin — GitHub Releases are not created.
 **`package.json` adjustments:**
 
 - `"version": "0.0.0-semantic-release"` — semantic-release overwrites on publish.
-- `"publishConfig": { "access": "public" }` — required for the scoped `@soda/...` name.
+- `"publishConfig": { "access": "public" }` — required for the scoped `@x-wp/...` name.
 - No `semantic-release` npm script.
 
 **Commit-message guardrails (optional, separate bead):** `@commitlint/cli` + `@commitlint/config-conventional` + `husky` `commit-msg` hook.
@@ -172,7 +172,7 @@ No `@semantic-release/github` plugin — GitHub Releases are not created.
   - Steps: checkout with `fetch-depth: 0` → setup-node → `npm ci` → run semantic-release via a GitHub Action that brings semantic-release + plugins as `extra_plugins`.
   - Secrets: `NPM_TOKEN`.
 - Verification:
-  - A `feat:` commit to `master` publishes `@soda/friendly-errors-webpack-plugin@<next>` to npm, commits `CHANGELOG.md` back, and creates the git tag. Confirm with `npm view @soda/friendly-errors-webpack-plugin` and `git ls-remote --tags`.
+  - A `feat:` commit to `master` publishes `@x-wp/friendly-errors-webpack-plugin@<next>` to npm, commits `CHANGELOG.md` back, and creates the git tag. Confirm with `npm view @x-wp/friendly-errors-webpack-plugin` and `git ls-remote --tags`.
   - A `chore:` commit does **not** trigger a release (per `releaseRules`).
 
 ## Out of scope
