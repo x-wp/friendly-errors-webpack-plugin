@@ -1,0 +1,44 @@
+'use strict';
+
+/** @type {import('eslint').Linter.Config} */
+module.exports = {
+  parserOptions: {
+    ecmaVersion: 2022,
+  },
+  plugins: ['n'],
+  extends: ['eslint:recommended', 'plugin:n/recommended'],
+  rules: {
+    'no-console': 'off',
+    'no-unused-vars': 'off',
+    'n/no-missing-require': 'off',
+    'n/no-unpublished-require': 'off',
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        ecmaVersion: 2022,
+        sourceType: 'module',
+      },
+      plugins: ['n', '@typescript-eslint'],
+      extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:n/recommended',
+      ],
+      rules: {
+        'no-console': 'off',
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-require-imports': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-namespace': 'off',
+        'n/no-missing-import': 'off',
+        'n/no-unsupported-features/es-syntax': 'off',
+      },
+    },
+  ],
+};
