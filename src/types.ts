@@ -58,6 +58,12 @@ export interface PluginOptions {
   clearConsole?: boolean;
   additionalFormatters?: Formatter[];
   additionalTransformers?: Transformer[];
+  /**
+   * Suppress the "Compiled successfully" banner on clean builds. Errors and
+   * warnings still print as usual. Useful when another plugin is already
+   * announcing success and you only want this plugin's error reporting.
+   */
+  silentSuccess?: boolean;
 }
 
 /** Either single or multi-compiler stats. */

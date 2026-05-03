@@ -40,6 +40,7 @@ class FriendlyErrorsWebpackPlugin implements WebpackPluginInstance {
   compilationSuccessInfo: NonNullable<PluginOptions['compilationSuccessInfo']>;
   onErrors: PluginOptions['onErrors'];
   shouldClearConsole: boolean;
+  silentSuccess: boolean;
   formatters: Formatter[];
   transformers: Transformer[];
   previousEndTimes: Record<number, number | undefined>;
@@ -49,6 +50,7 @@ class FriendlyErrorsWebpackPlugin implements WebpackPluginInstance {
     this.compilationSuccessInfo = options.compilationSuccessInfo || {};
     this.onErrors = options.onErrors;
     this.shouldClearConsole = options.clearConsole == null ? true : Boolean(options.clearConsole);
+    this.silentSuccess = Boolean(options.silentSuccess);
     this.formatters = concat<Formatter>(defaultFormatters, options.additionalFormatters);
     this.transformers = concat<Transformer>(defaultTransformers, options.additionalTransformers);
     this.previousEndTimes = {};
@@ -62,7 +64,9 @@ class FriendlyErrorsWebpackPlugin implements WebpackPluginInstance {
       const hasWarnings = stats.hasWarnings();
 
       if (!hasErrors && !hasWarnings) {
-        this.displaySuccess(stats);
+        if (!this.silentSuccess) {
+          this.displaySuccess(stats);
+        }
         return;
       }
 

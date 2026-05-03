@@ -43,6 +43,11 @@ it('integration : success', async () => {
   expect(logs.join('\n')).toMatch(/DONE {2}Compiled successfully in (.\d*)ms/);
 });
 
+it('integration : silentSuccess suppresses the success banner', async () => {
+  const logs = await executeAndGetLogs('./fixtures/silent-success/webpack.config');
+  expect(logs).toEqual([]);
+});
+
 it('integration : module-errors', async () => {
   const logs = await executeAndGetLogs('./fixtures/module-errors/webpack.config.js');
   expect(logs).toEqual([
