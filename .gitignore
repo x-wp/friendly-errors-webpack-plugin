@@ -1,6 +1,7 @@
 node_modules/
 .log
 dist/
+coverage/
 
 # Beads / Dolt files (added by bd init)
 .dolt/

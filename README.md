@@ -7,6 +7,7 @@
 [![CI](https://github.com/x-wp/friendly-errors-webpack-plugin/actions/workflows/test.yml/badge.svg)](https://github.com/x-wp/friendly-errors-webpack-plugin/actions/workflows/test.yml)  
 ![npm downloads](https://img.shields.io/npm/dm/@x-wp/friendly-errors-webpack-plugin)
 ![GitHub](https://img.shields.io/github/license/x-wp/friendly-errors-webpack-plugin)
+[![Codecov](https://img.shields.io/codecov/c/github/x-wp/friendly-errors-webpack-plugin?logo=codecov&color=%23F01F7A)](https://codecov.io/gh/x-wp/friendly-errors-webpack-plugin)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 </div>

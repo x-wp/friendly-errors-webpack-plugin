@@ -7,6 +7,9 @@ const config: Config = {
     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }],
   },
   testMatch: ['**/test/**/*.spec.{js,ts}'],
+  collectCoverageFrom: ['src/**/*.{ts,js}'],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['lcov', 'text-summary'],
 };
 
 export default config;

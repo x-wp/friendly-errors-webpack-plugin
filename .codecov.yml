@@ -1,0 +1,22 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+    patch:
+      default:
+        target: auto
+        threshold: 1%
+
+ignore:
+  - "test/**"
+  - "_sandbox/**"
+  - "dist/**"
+  - "**/*.spec.ts"
+  - "**/*.spec.js"
+
+comment:
+  layout: "reach,diff,flags,files"
+  behavior: default
+  require_changes: false
